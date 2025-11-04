@@ -1,7 +1,7 @@
 {
-  "name": "x402-sdk",
-  "version": "0.1.0",
-  "description": "Opinionated TypeScript SDK for x402 pay-for-resource flows on Solana",
+  "name": "x402-sdk-solana",
+  "version": "0.1.1",
+  "description": "TypeScript SDK for HTTP 402 (Payment Required) micropayments on Solana with support for SOL, USDC, and custom SPL tokens",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "exports": {
@@ -19,15 +19,45 @@
     "test": "node --test",
     "example:sol": "tsx examples/sol-payment-example.ts",
     "example:usdc": "tsx examples/usdc-payment-example.ts",
-    "example:server": "tsx examples/server-example.ts",
-    "example:client": "tsx examples/client-test-example.ts"
+    "prepublishOnly": "npm run build"
   },
-   "repository": {
+  "repository": {
     "type": "git",
-    "url": "https://github.com/Shradhesh71/x402-sdk"
+    "url": "git+https://github.com/Shradhesh71/x402-sdk.git"
   },
-  "keywords": [],
-  "license": "",
+  "keywords": [
+    "solana",
+    "payments",
+    "micropayments",
+    "x402",
+    "http-402",
+    "spl-token",
+    "usdc",
+    "sol",
+    "blockchain",
+    "cryptocurrency",
+    "typescript",
+    "express",
+    "middleware",
+    "pay-per-use",
+    "payment-gateway",
+    "web3"
+  ],
+  "license": "MIT",
+  "author": "Shradhesh Jodawat <shradhesh71.work@gmail.com>",
+  "homepage": "https://github.com/Shradhesh71/x402-sdk#readme",
+  "bugs": {
+    "url": "https://github.com/Shradhesh71/x402-sdk/issues"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "examples",
+    "README.md",
+    "LICENSE"
+  ],
   "dependencies": {
     "@solana/spl-token": "^0.4.8",
     "@solana/web3.js": "^1.98.4",
@@ -40,5 +70,9 @@
     "ts-node": "^10.9.2",
     "tsx": "^4.20.6",
     "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "@solana/web3.js": ">=1.90.0",
+    "@solana/spl-token": ">=0.4.0"
   }
 }

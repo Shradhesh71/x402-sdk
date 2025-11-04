@@ -1,7 +1,29 @@
-/node_modules
+# Dependencies
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
 
-/dist
+# Build outputs
+*.log
+*.tsbuildinfo
 
-/examples
+# Environment variables
+.env
+.env.local
+.env.*.local
 
-README.md
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Backup files
+*~
+*.backup
+*-backup.*

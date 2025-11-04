@@ -10,7 +10,7 @@ const payment_builder_1 = require("./payment-builder");
  * - Decodes transaction
  * - Verifies expected instructions (amount, recipient, token)
  * - Simulates transaction
- * - Submits raw transaction and confirms
+ * - Submits raw transaction and createPaymentMiddlewareonfirms
  */
 async function verifyAndSubmitSerializedTransaction(serializedTxBase64, expectedConfig, network) {
     const conn = (0, token_utils_1.getConnection)(network);

@@ -5,7 +5,7 @@ import { PaymentConfig } from './types';
  * - Decodes transaction
  * - Verifies expected instructions (amount, recipient, token)
  * - Simulates transaction
- * - Submits raw transaction and confirms
+ * - Submits raw transaction and createPaymentMiddlewareonfirms
  */
 export declare function verifyAndSubmitSerializedTransaction(serializedTxBase64: string, expectedConfig: PaymentConfig, network: string): Promise<{
     success: boolean;

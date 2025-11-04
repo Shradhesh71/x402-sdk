@@ -9,7 +9,7 @@ import { PaymentUtils, PaymentVerifier } from './payment-builder';
  * - Decodes transaction
  * - Verifies expected instructions (amount, recipient, token)
  * - Simulates transaction
- * - Submits raw transaction and confirms
+ * - Submits raw transaction and createPaymentMiddlewareonfirms
  */
 export async function verifyAndSubmitSerializedTransaction(
   serializedTxBase64: string,

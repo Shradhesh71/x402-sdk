@@ -5,7 +5,7 @@
 
 TypeScript SDK for HTTP 402 micropayments on Solana. Add pay-per-use to your APIs with one line of code.
 
-**Features:** SOL/USDC payments • Express middleware • Auto verification • TypeScript
+**Features:** SOL/USDC/CASH payments • Phantom wallet support • Express middleware • Auto verification • TypeScript
 
 ## 📦 Installation
 
@@ -83,6 +83,13 @@ sdk.payments.sol(amount, recipient)
 sdk.payments.usdc(amount, recipient)
 sdk.payments.spl(amount, recipient, mintAddress, decimals)
 
+// Phantom CASH payments (browser only)
+await sdk.payWithPhantomCash(paymentReq, {
+  connection,
+  provider: window.phantom.solana,
+  cashMint: 'CASHVDm2wsJXfhj6VWxb7GiMdoLc17Du7paH4bNr5woT'
+})
+
 // Execute payments
 await sdk.pay(paymentConfig, { payerKeypair: wallet })
 await sdk.createSignedTransaction(paymentConfig, keypair)
@@ -106,6 +113,34 @@ createPaymentMiddleware({
 ```
 
 ## Examples
+
+### Phantom Wallet CASH Payments
+
+```typescript
+import { payWithPhantomCash } from 'x402-sdk-solana';
+import { Connection } from '@solana/web3.js';
+
+// Connect Phantom wallet
+const provider = window.phantom?.solana;
+await provider.connect();
+
+// Pay with CASH token
+const result = await payWithPhantomCash(
+  {
+    amount: '0.01',
+    payment_payload: {
+      recipient: 'recipient-wallet-address'
+    }
+  },
+  {
+    connection: new Connection('https://api.devnet.solana.com'),
+    provider,
+    cashMint: 'CASHVDm2wsJXfhj6VWxb7GiMdoLc17Du7paH4bNr5woT'
+  }
+);
+
+console.log(`✅ CASH payment sent: ${result.txSignature}`);
+```
 
 ### Complete x402 Flow
 
@@ -147,12 +182,25 @@ const premiumPayment = createPaymentMiddleware({
   network: 'solana-devnet'
 });
 
+const cashPayment = createPaymentMiddleware({
+  tokenType: 'SPL',
+  price: 0.01,
+  recipient: 'your-address',
+  network: 'solana-devnet',
+  mintAddress: 'CASHVDm2wsJXfhj6VWxb7GiMdoLc17Du7paH4bNr5woT',
+  decimals: 6
+});
+
 app.get('/api/basic', basicPayment, (req, res) => {
   res.json({ data: 'Basic content' });
 });
 
 app.get('/api/premium', premiumPayment, (req, res) => {
   res.json({ data: 'Premium content' });
+});
+
+app.get('/api/cash', cashPayment, (req, res) => {
+  res.json({ data: 'CASH token content' });
 });
 ```
 

@@ -1,6 +1,7 @@
 import { PublicKey, Keypair, Connection, Transaction } from '@solana/web3.js';
 import { SDKConfig, X402PaymentRequirements, ExecResponse, PaymentConfig, TokenType, PaymentMethod } from './types';
 import { PaymentBuilder, PaymentUtils, PaymentVerifier, Payments } from './payment-builder';
+import { PhantomProvider } from './wallet-payments';
 export declare class X402SDK {
     private cfg;
     private facilitator?;
@@ -100,8 +101,20 @@ export declare class X402SDK {
          */
         getUSDCMint: () => PublicKey;
     };
+    payWithPhantomCash(paymentReq: {
+        amount: string;
+        payment_payload: Record<string, any>;
+    }, opts: {
+        connection: Connection;
+        provider: PhantomProvider;
+        cashMint: string;
+    }): Promise<{
+        txSignature: string;
+        raw?: any;
+    }>;
 }
 export { PaymentBuilder, PaymentUtils, PaymentVerifier, Payments };
 export * from './server';
 export * from './types';
 export * from './token-utils';
+export { payWithPhantomCash, PhantomProvider } from './wallet-payments';

@@ -11,6 +11,7 @@ import { FacilitatorClient } from './facilitator';
 import { submitOnChainDirect, submitPaymentOnChain, createSignedPaymentTransaction } from './onchain';
 import { PaymentBuilder, PaymentUtils, PaymentVerifier, Payments } from './payment-builder';
 import { getConnection, getUSDCMint } from './token-utils';
+import { payWithPhantomCash, PhantomProvider } from './wallet-payments';
 
 export class X402SDK {
   private cfg: SDKConfig;
@@ -285,6 +286,13 @@ export class X402SDK {
         getUSDCMint(this.cfg.network)
     };
   }
+
+  async payWithPhantomCash(
+    paymentReq: { amount: string; payment_payload: Record<string, any> }, 
+    opts: {connection: Connection, provider: PhantomProvider, cashMint: string}
+  ) {
+    return payWithPhantomCash(paymentReq, { connection: opts.connection, provider: opts.provider, cashMint: opts.cashMint });
+  }
 }
 
 // Export utility classes and functions
@@ -300,3 +308,5 @@ export * from './server';
 export * from './types';
 
 export * from './token-utils';
+
+export { payWithPhantomCash, PhantomProvider } from './wallet-payments';

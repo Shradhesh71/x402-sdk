@@ -57,3 +57,4 @@ export declare function verifySPLTransferInstruction(instruction: any, expectedR
  * Verify SOL transfer instruction
  */
 export declare function verifySOLTransferInstruction(instruction: any, expectedRecipient: PublicKey, expectedAmount: bigint): boolean;
+export declare function decimalToBaseUnits(amountStr: string, decimals: number): bigint;

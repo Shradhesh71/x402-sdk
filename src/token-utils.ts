@@ -329,3 +329,17 @@ export function verifySOLTransferInstruction(
     return false;
   }
 }
+
+export function decimalToBaseUnits(amountStr: string, decimals: number): bigint {
+  // amountStr like "0.00123" or "2"
+  const parts = amountStr.split('.');
+  const intPart = parts[0] || '0';
+  const fracPart = parts[1] || '';
+  if (!/^\d+$/.test(intPart) || (fracPart && !/^\d+$/.test(fracPart))) {
+    throw new Error('Invalid amount format');
+  }
+  const fracPadded = (fracPart + '0'.repeat(decimals)).slice(0, decimals);
+  const intBig = BigInt(intPart) * (10n ** BigInt(decimals));
+  const fracBig = BigInt(fracPadded || '0');
+  return intBig + fracBig;
+}

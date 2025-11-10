@@ -14,7 +14,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !Object.prototype.hasOwnProperty.call(exports, p)) __createBinding(exports, m, p);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.Payments = exports.PaymentVerifier = exports.PaymentUtils = exports.PaymentBuilder = exports.X402SDK = void 0;
+exports.payWithPhantomCash = exports.Payments = exports.PaymentVerifier = exports.PaymentUtils = exports.PaymentBuilder = exports.X402SDK = void 0;
 const web3_js_1 = require("@solana/web3.js");
 const facilitator_1 = require("./facilitator");
 const onchain_1 = require("./onchain");
@@ -24,6 +24,7 @@ Object.defineProperty(exports, "PaymentUtils", { enumerable: true, get: function
 Object.defineProperty(exports, "PaymentVerifier", { enumerable: true, get: function () { return payment_builder_1.PaymentVerifier; } });
 Object.defineProperty(exports, "Payments", { enumerable: true, get: function () { return payment_builder_1.Payments; } });
 const token_utils_1 = require("./token-utils");
+const wallet_payments_1 = require("./wallet-payments");
 class X402SDK {
     constructor(cfg) {
         this.cfg = cfg;
@@ -231,8 +232,13 @@ class X402SDK {
             getUSDCMint: () => (0, token_utils_1.getUSDCMint)(this.cfg.network)
         };
     }
+    async payWithPhantomCash(paymentReq, opts) {
+        return (0, wallet_payments_1.payWithPhantomCash)(paymentReq, { connection: opts.connection, provider: opts.provider, cashMint: opts.cashMint });
+    }
 }
 exports.X402SDK = X402SDK;
 __exportStar(require("./server"), exports);
 __exportStar(require("./types"), exports);
 __exportStar(require("./token-utils"), exports);
+var wallet_payments_2 = require("./wallet-payments");
+Object.defineProperty(exports, "payWithPhantomCash", { enumerable: true, get: function () { return wallet_payments_2.payWithPhantomCash; } });
